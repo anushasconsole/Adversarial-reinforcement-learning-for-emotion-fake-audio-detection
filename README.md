@@ -61,6 +61,24 @@ Exit criteria:
 - split manifests saved and fixed
 - consistent preprocessed outputs across defender data loaders
 
+Phase 0 starter implementation in this repository:
+
+- `environment.phase0.yml`: pinned CUDA 12.1 + PyTorch 2.4 environment
+- `scripts/phase0/build_splits.py`: metadata integrity checks + speaker-disjoint split manifests
+- `scripts/phase0/preprocess_audio.py`: 16 kHz mono + peak normalization + pad/trim to 4s
+- `scripts/phase0/validate_pesq_stoi.py`: PESQ/STOI validation for clean/degraded pairs
+
+Example usage:
+
+1. Create environment:
+   - `conda env create -f environment.phase0.yml`
+2. Build fixed manifests:
+   - `python scripts/phase0/build_splits.py --metadata /path/to/metadata.csv --audio-root /path/to/audio --output-dir /path/to/manifests --seed 42`
+3. Preprocess each split:
+   - `python scripts/phase0/preprocess_audio.py --manifest /path/to/manifests/train.manifest.csv --output-dir /path/to/preprocessed/train --output-manifest /path/to/preprocessed/train.manifest.csv`
+4. Validate PESQ/STOI:
+   - `python scripts/phase0/validate_pesq_stoi.py --pairs-csv /path/to/pairs.csv --fail-on-invalid`
+
 ### Phase 1 — SFT Baselines
 
 #### 1A) Defender SFT
