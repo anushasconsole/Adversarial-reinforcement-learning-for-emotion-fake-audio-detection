@@ -1,0 +1,31 @@
+{
+  "run_name": "phase4_final_eval",
+  "output_dir": "./artifacts/phase4",
+  "test_manifest": "/abs/path/to/preprocessed/test.manifest.csv",
+  "transfer_manifest": "/abs/path/to/asvspoof5/manifest.csv",
+  "path_col": "preprocessed_path",
+  "fallback_path_col": "absolute_path",
+  "label_col": "label",
+  "seed": 42,
+  "device": "cuda",
+  "batch_size": 8,
+  "num_workers": 0,
+  "epsilon": 0.01,
+  "fgsm_epsilon": 0.005,
+  "bootstrap_samples": 1000,
+  "rl_defender_name": "wavlm",
+  "sft_defender_name": "wavlm",
+  "rl_attacker": "mamba",
+  "rl_attacker_checkpoint": "/abs/path/to/artifacts/phase3/phase3_rl/checkpoints/attacker_mamba_step5000.pt",
+  "defenders": [
+    {"name": "wavlm", "checkpoint": "/abs/path/to/artifacts/phase3/phase3_rl/checkpoints/defender_wavlm_step5000.pt"},
+    {"name": "aasist", "checkpoint": "/abs/path/to/artifacts/phase1/defenders/phase1_defender_sft/checkpoints/aasist.best.pt"},
+    {"name": "rawnet2", "checkpoint": "/abs/path/to/artifacts/phase1/defenders/phase1_defender_sft/checkpoints/rawnet2.best.pt"},
+    {"name": "lcnn", "checkpoint": "/abs/path/to/artifacts/phase1/defenders/phase1_defender_sft/checkpoints/lcnn.best.pt"}
+  ],
+  "wavlm": {
+    "model_name": "microsoft/wavlm-base",
+    "freeze_backbone": true,
+    "dropout": 0.2
+  }
+}
