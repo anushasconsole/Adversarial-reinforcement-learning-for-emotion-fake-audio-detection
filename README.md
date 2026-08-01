@@ -97,6 +97,28 @@ Example usage:
 3. Run exit checks:
    - `python scripts/phase1/phase1_exit_checks.py --defender-metrics /path/to/defenders/metrics.jsonl --attacker-metrics /path/to/attackers/metrics.jsonl --output-summary /path/to/phase1_exit_summary.json`
 
+Phase 2 starter implementation in this repository:
+
+- `scripts/phase2/stress_test.py`: defender×attacker stress-testing with vulnerability matrix output (EER/AUC/accuracy + attack success + PESQ/STOI)
+- `scripts/phase2/configs/stress_test.example.json`: example Phase 2 config
+
+Phase 3 starter implementation in this repository:
+
+- `scripts/phase3/train_rl.py`: 5,000-step zero-sum style RL loop scaffold with defender alternation, attacker schedule switch, curriculum, GRPO-style reward normalization, WGAN-GP-style regularization, and periodic checkpoints/metrics
+- `scripts/phase3/configs/rl_train.example.json`: example Phase 3 config
+
+Phase 4 starter implementation in this repository:
+
+- `scripts/phase4/final_evaluation.py`: final evaluation scaffold for FGSM sanity, LCNN transfer, SFT-vs-RL comparison, optional zero-day transfer manifest evaluation, and statistics (DeLong-style AUC p-value + bootstrap EER CI)
+- `scripts/phase4/configs/final_eval.example.json`: example Phase 4 config
+
+Pipeline/completion helpers:
+
+- `scripts/phase0/prepare_emofake_dataset.py`: dataset materialization helper (from local source dir or archive URL/path)
+- `scripts/pipeline/run_project.py`: phase-by-phase orchestration runner driven by JSON command config
+- `scripts/pipeline/configs/full_pipeline.example.json`: full pipeline command template
+- `scripts/package_results.py`: completion package exporter and objective summary generator
+
 ### Phase 1 — SFT Baselines
 
 #### 1A) Defender SFT
