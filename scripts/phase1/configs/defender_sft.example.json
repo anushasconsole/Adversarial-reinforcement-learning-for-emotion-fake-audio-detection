@@ -1,0 +1,22 @@
+{
+  "run_name": "phase1_defender_sft",
+  "output_dir": "./artifacts/phase1/defenders",
+  "train_manifest": "/abs/path/to/manifests/train.manifest.csv",
+  "dev_manifest": "/abs/path/to/manifests/dev.manifest.csv",
+  "path_col": "preprocessed_path",
+  "fallback_path_col": "absolute_path",
+  "label_col": "label",
+  "seed": 42,
+  "device": "cuda",
+  "batch_size": 8,
+  "epochs": 5,
+  "num_workers": 0,
+  "lr": 5e-5,
+  "amp": true,
+  "models": ["wavlm", "aasist", "rawnet2", "lcnn"],
+  "wavlm": {
+    "model_name": "microsoft/wavlm-base",
+    "freeze_backbone": true,
+    "dropout": 0.2
+  }
+}

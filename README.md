@@ -79,6 +79,24 @@ Example usage:
 4. Validate PESQ/STOI:
    - `python scripts/phase0/validate_pesq_stoi.py --pairs-csv /path/to/pairs.csv --fail-on-invalid`
 
+Phase 1 starter implementation in this repository:
+
+- `scripts/phase1/train_defenders.py`: config-driven Phase 1A training for WavLM, AASIST, RawNet2, and LCNN
+- `scripts/phase1/train_attackers.py`: config-driven Phase 1B attacker SFT for Squeezeformer and Mamba against frozen AASIST
+- `scripts/phase1/common.py`: shared dataset loading, metrics (EER/AUC/accuracy), checkpointing, and logging helpers
+- `scripts/phase1/models.py`: defender and attacker model builders, including WavLM backbone-freeze support
+- `scripts/phase1/phase1_exit_checks.py`: validates Phase 1 exit criteria and writes summary JSON
+- `scripts/phase1/configs/*.example.json`: example configs for defender and attacker runs
+
+Example usage:
+
+1. Train defenders (Phase 1A):
+   - `python scripts/phase1/train_defenders.py --config scripts/phase1/configs/defender_sft.example.json`
+2. Train attackers (Phase 1B):
+   - `python scripts/phase1/train_attackers.py --config scripts/phase1/configs/attacker_sft.example.json`
+3. Run exit checks:
+   - `python scripts/phase1/phase1_exit_checks.py --defender-metrics /path/to/defenders/metrics.jsonl --attacker-metrics /path/to/attackers/metrics.jsonl --output-summary /path/to/phase1_exit_summary.json`
+
 ### Phase 1 — SFT Baselines
 
 #### 1A) Defender SFT
